@@ -3,6 +3,7 @@ package springboot.springboot.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HelloController {
@@ -18,5 +19,15 @@ public class HelloController {
 
         // 랜더링할 파일
         return "hello";
+    }
+
+    @GetMapping("hello-mvc")
+    // @RequestParam을 사용하면 url?name=~~ 이런 식으로 파라미터를 수 있음
+    // required라는 옵션이 있는데 true가 디폴트기 때문에 이를 유념해야 함
+    public String helloMvc(@RequestParam(value = "name", required = false) String name, Model model) {
+
+        model.addAttribute("name", name);
+
+        return "hello-template";
     }
 }
