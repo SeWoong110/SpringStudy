@@ -2,14 +2,18 @@ package springboot.springboot.service;
 
 import springboot.springboot.domain.Member;
 import springboot.springboot.repository.MemberRepository;
-import springboot.springboot.repository.MemoryMemberRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 public class MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    // MemberService와 Test에서 같은 Repository객체를 사용하도록 외부에서 주입해주는 방식을 사용.
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     // 회원가입
     // 같은 이름의 회원은 안된다는 규칙이 있다는 가정
